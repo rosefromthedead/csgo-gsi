@@ -19,7 +19,7 @@ pub struct GSIServer {
     port: u16,
     config: GSIConfig,
     installed: bool,
-    listeners: Vec<Box<dyn Fn(&update::Update)>>,
+    listeners: Vec<Box<dyn FnMut(&update::Update)>>,
 }
 
 impl GSIServer {
@@ -43,7 +43,7 @@ impl GSIServer {
         self.install_into(install_dir::discover_cfg_folder()?)?;
     }
 
-    pub fn add_listener<F: 'static + Fn(&update::Update)>(&mut self, listener: F) {
+    pub fn add_listener<F: 'static + FnMut(&update::Update)>(&mut self, listener: F) {
         self.listeners.push(Box::new(listener));
     }
 
@@ -59,7 +59,7 @@ impl GSIServer {
         tokio::spawn(gotham::init_server(("127.0.0.1", port), router(tx)));
 
         for update in rx {
-            for callback in &self.listeners {
+            for callback in &mut self.listeners {
                 callback(&update)
             }
         }
