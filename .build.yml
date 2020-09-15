@@ -1,0 +1,10 @@
+image: alpine/latest
+packages:
+  - rust
+  - cargo
+sources:
+  - https://git.sr.ht/~boringcactus/csgo-gsi
+tasks:
+  - test: |
+      cd csgo-gsi
+      cargo test
