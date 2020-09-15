@@ -3,8 +3,17 @@ name = "csgo-gsi"
 version = "0.1.0"
 authors = ["Melody Horn <melody@boringcactus.com>"]
 edition = "2018"
+description = "rust library for CS:GO's Game State Integration API"
+documentation = "https://docs.rs/csgo-gsi"
+readme = "README.md"
+homepage = "https://sr.ht/~boringcactus/csgo-gsi/"
+repository = "https://git.sr.ht/~boringcactus/csgo-gsi"
+license-file = "LICENSE"
+keywords = ["csgo", "valve"]
+categories = ["api-bindings"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[badges]
+maintenance = { status = "experimental" }
 
 [dependencies]
 serde = { version = "1.0.115", features = ["derive"] }
@@ -17,3 +26,6 @@ tokio = { version = "0.2.5", features = ["full"] }
 
 [target.'cfg(windows)'.dependencies]
 registry = "1.0.0-alpha.4"
+
+[dev-dependencies]
+version-sync = "0.9.1"

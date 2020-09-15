@@ -48,6 +48,7 @@ pub enum Subscription {
 }
 
 impl Subscription {
+    /// The subscriptions available in every context
     pub const UNRESTRICTED: &'static [Subscription] = &[
         Subscription::MapRoundWins,
         Subscription::Map,
@@ -59,6 +60,7 @@ impl Subscription {
         Subscription::Round,
     ];
 
+    /// The subscriptions only available to spectators (**UNTESTED**)
     pub const SPECTATOR_ONLY: &'static [Subscription] = &[
         Subscription::AllGrenades,
         Subscription::AllPlayersID,
@@ -78,6 +80,7 @@ impl From<&Subscription> for Subscription {
     }
 }
 
+/// Builder struct for GSIConfig
 #[derive(Clone)]
 pub struct GSIConfigBuilder {
     name: String,
@@ -93,6 +96,7 @@ pub struct GSIConfigBuilder {
 }
 
 impl GSIConfigBuilder {
+    /// Initialize the builder, with the given service name
     pub fn new<S: Into<String>>(name: S) -> GSIConfigBuilder {
         GSIConfigBuilder {
             name: name.into(),
@@ -108,61 +112,73 @@ impl GSIConfigBuilder {
         }
     }
 
+    /// CS:GO's client timeout for requests (default is 1.1 seconds)
     pub fn timeout(&mut self, timeout: Duration) -> &mut Self {
         self.timeout = Some(timeout);
         self
     }
 
+    /// minimum wait between sending updates (default is 0.1 seconds)
     pub fn buffer(&mut self, buffer: Duration) -> &mut Self {
         self.buffer = Some(buffer);
         self
     }
 
+    /// minimum wait between response to one update and sending the next (default is 1.0 seconds)
     pub fn throttle(&mut self, throttle: Duration) -> &mut Self {
         self.throttle = Some(throttle);
         self
     }
 
+    /// maximum time between updates (default is 60 seconds)
     pub fn heartbeat(&mut self, heartbeat: Duration) -> &mut Self {
         self.heartbeat = Some(heartbeat);
         self
     }
 
+    /// adds an authorization key/value pair (**not currently verified**)
     pub fn auth<S1: Into<String>, S2: Into<String>>(&mut self, key: S1, value: S2) -> &mut Self {
         self.auth.insert(key.into(), value.into());
         self
     }
 
+    /// digits after the decimal point in time values (default is 2)
     pub fn precision_time(&mut self, precision: u8) -> &mut Self {
         self.precision_time = Some(precision);
         self
     }
 
+    /// digits after the decimal point in position values (default is 2)
     pub fn precision_position(&mut self, precision: u8) -> &mut Self {
         self.precision_position = Some(precision);
         self
     }
 
+    /// digits after the decimal point in vector values (default is 2)
     pub fn precision_vector(&mut self, precision: u8) -> &mut Self {
         self.precision_vector = Some(precision);
         self
     }
 
+    /// subscribe to a certain set of update info
     pub fn subscribe(&mut self, subscription: Subscription) -> &mut Self {
         self.subscriptions.insert(subscription);
         self
     }
 
+    /// subscribe to several sets of update info
     pub fn subscribe_multiple<I: IntoIterator<Item=S>, S: Into<Subscription>>(&mut self, subscriptions: I) -> &mut Self {
         self.subscriptions.extend(subscriptions.into_iter().map(|x| x.into()));
         self
     }
 
+    /// create the config object
     pub fn build(&self) -> GSIConfig {
         GSIConfig::from(self)
     }
 }
 
+/// Game State Integration configuration
 pub struct GSIConfig {
     service_name: String,
     timeout: Duration,
@@ -201,7 +217,7 @@ impl From<&GSIConfigBuilder> for GSIConfig {
 
 impl GSIConfig {
     #[throws]
-    pub fn install_into<P: Into<PathBuf>>(&self, cfg_folder: P, port: u16) {
+    pub(crate) fn install_into<P: Into<PathBuf>>(&self, cfg_folder: P, port: u16) {
         let mut cfg_path = cfg_folder.into();
         cfg_path.push(&format!("gamestate_integration_{}.cfg", &self.service_name));
         let config = config_file::ConfigFile::new(&self, port);

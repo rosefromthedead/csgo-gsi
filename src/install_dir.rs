@@ -77,6 +77,7 @@ pub fn discover_cfg_folder() -> PathBuf {
 mod tests {
     use super::*;
 
+    #[allow(unused_attributes)]
     #[test]
     #[ignore = "extremely dependent on my specific setup"]
     #[throws]

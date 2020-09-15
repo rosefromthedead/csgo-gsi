@@ -15,6 +15,7 @@ use gotham::state::{State, FromState};
 
 use crate::{GSIConfig, Error, install_dir, update};
 
+/// a server that listens for GSI updates
 pub struct GSIServer {
     port: u16,
     config: GSIConfig,
@@ -23,6 +24,7 @@ pub struct GSIServer {
 }
 
 impl GSIServer {
+    /// create a new server with the given configuration and port
     pub fn new(config: GSIConfig, port: u16) -> Self {
         Self {
             port,
@@ -32,21 +34,25 @@ impl GSIServer {
         }
     }
 
+    /// install this server's configuration into the given `/path/to/csgo/cfg/` folder
     #[throws]
     pub fn install_into<P: Into<PathBuf>>(&mut self, cfg_folder: P) {
         self.config.install_into(cfg_folder, self.port)?;
         self.installed = true;
     }
 
+    /// install this server's configuration into the autodiscovered `/path/to/csgo/cfg/` folder, if it can be found
     #[throws]
     pub fn install(&mut self) {
         self.install_into(install_dir::discover_cfg_folder()?)?;
     }
 
+    /// add an update listener
     pub fn add_listener<F: 'static + FnMut(&update::Update)>(&mut self, listener: F) {
         self.listeners.push(Box::new(listener));
     }
 
+    /// run the server (will block indefinitely)
     #[throws]
     pub async fn run(mut self) {
         if !self.installed {
@@ -126,6 +132,7 @@ pub async fn handle_update(mut state: State) -> (State, Response<Body>) {
             return (state, response);
         }
     };
+    // TODO verify auth
     {
         let update_handler = UpdateHandler::borrow_from(&state);
         update_handler.send(data);

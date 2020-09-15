@@ -3,10 +3,14 @@ use std::fmt;
 
 use fehler::throws;
 
+/// any error caused by this library
 #[derive(Debug)]
 pub enum Error {
+    /// an error encountered when trying to install configuration
     ConfigInstallError {
+        /// a textual description of the error
         description: &'static str,
+        /// an upstream cause of the error
         cause: Option<Box<dyn StdError>>,
     },
 }
