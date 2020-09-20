@@ -3,7 +3,7 @@
 use serde::{Serialize, Deserialize};
 
 /// round info
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct Round {
     /// phase of round
@@ -15,7 +15,7 @@ pub struct Round {
 }
 
 /// round phase
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "lowercase")]
 pub enum Phase {
     /// in progress
@@ -27,7 +27,7 @@ pub enum Phase {
 }
 
 /// bomb state
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "lowercase")]
 pub enum BombState {
     /// planted

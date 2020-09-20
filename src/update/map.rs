@@ -5,7 +5,7 @@ use std::collections::HashMap;
 use serde::{Serialize, Deserialize};
 
 /// map information
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct Map {
     /// current number of spectators
@@ -32,7 +32,7 @@ pub struct Map {
 }
 
 /// game mode
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "lowercase")]
 pub enum Mode {
     /// competitive
@@ -55,7 +55,7 @@ pub enum Mode {
 }
 
 /// map phase
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "lowercase")]
 pub enum Phase {
     /// warmup
@@ -74,7 +74,7 @@ pub enum Phase {
 pub type RoundWin = String;
 
 /// team info
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct Team {
     /// rounds won

@@ -17,7 +17,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-csgo-gsi = "0.1.0"
+csgo-gsi = "0.2.0"
 ```
 
 # Simple Example

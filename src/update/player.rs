@@ -5,7 +5,7 @@ use std::collections::HashMap;
 use serde::{Serialize, Deserialize};
 
 /// player info
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct Player {
     /// steam ID
@@ -31,7 +31,7 @@ pub struct Player {
 }
 
 /// an activity a player can be doing
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "lowercase")]
 pub enum Activity {
     /// in a menu
@@ -41,7 +41,7 @@ pub enum Activity {
 }
 
 /// a player's match statistics
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct MatchStats {
     /// kills
@@ -57,7 +57,7 @@ pub struct MatchStats {
 }
 
 /// player state
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct State {
     /// health
@@ -88,7 +88,7 @@ pub struct State {
 }
 
 /// weapon info
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct Weapon {
     /// name
@@ -108,7 +108,7 @@ pub struct Weapon {
 }
 
 /// a type of weapon
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub enum WeaponType {
     /// knife
     Knife,
@@ -135,7 +135,7 @@ pub enum WeaponType {
 }
 
 /// status of weapon
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "lowercase")]
 pub enum WeaponState {
     /// not selected

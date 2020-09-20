@@ -16,7 +16,7 @@ use round::Round;
 // TODO abuse generics to align subscriptions with these types
 
 /// a team
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub enum Team {
     /// counter-terrorists
     CT,
@@ -25,7 +25,7 @@ pub enum Team {
 }
 
 /// an update received from CS:GO
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct Update {
     /// map info
@@ -45,7 +45,7 @@ pub struct Update {
 }
 
 /// information about the GSI info provider (CS:GO itself)
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct Provider {
     /// game name
