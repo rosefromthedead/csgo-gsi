@@ -52,7 +52,7 @@ also under the Anti-Capitalist Software License version 1.4, without any additio
 
 ## History
 
-v0.3.0 - pending
+v0.3.0 - 2020-09-20
 - add optional export into the Rhai scripting language, with the `rhai` feature
 
 v0.2.0 - 2020-09-20

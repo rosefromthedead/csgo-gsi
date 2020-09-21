@@ -25,7 +25,7 @@ pub struct Player {
     pub team: Option<super::Team>,
     /// weapon inventory
     #[serde(default)]
-    pub weapons: HashMap<String, Weapon>,
+    pub weapons: HashMap<String, Weapon>, // TODO are the keys ever not weapon_0, weapon_1, ...
     /// clan
     pub clan: Option<String>,
 }
