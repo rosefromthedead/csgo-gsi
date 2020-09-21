@@ -1,6 +1,6 @@
 [package]
 name = "csgo-gsi"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["Melody Horn <melody@boringcactus.com>"]
 edition = "2018"
 description = "rust library for CS:GO's Game State Integration API"
@@ -23,9 +23,14 @@ gotham = "0.5.0"
 gotham_derive = "0.5.0"
 serde_json = "1.0.57"
 tokio = { version = "0.2.5", features = ["full"] }
+rhai = { version = "0.18.3", optional = true }
 
 [target.'cfg(windows)'.dependencies]
 registry = "1.0.0-alpha.4"
 
 [dev-dependencies]
 version-sync = "0.9.1"
+
+[[example]]
+name = "rhai"
+required-features = ["rhai"]

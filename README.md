@@ -17,7 +17,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-csgo-gsi = "0.2.0"
+csgo-gsi = "0.3.0"
 ```
 
 # Simple Example
@@ -51,6 +51,9 @@ Unless you explicitly state otherwise, any contribution you submit shall be
 also under the Anti-Capitalist Software License version 1.4, without any additional terms or conditions.
 
 ## History
+
+v0.3.0 - pending
+- add optional export into the Rhai scripting language, with the `rhai` feature
 
 v0.2.0 - 2020-09-20
 - make `Update` be `Clone`
