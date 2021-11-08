@@ -40,6 +40,7 @@ pub fn get_library_folders() -> PathBuf {
 #[cfg(not(any(target_os = "windows", target_os = "macos", target_os = "linux")))] compile_error!("unsupported OS");
 
 #[derive(Deserialize)]
+#[serde(rename = "libraryfolders")]
 struct LibraryFolders(HashMap<String, String>);
 
 #[throws]
